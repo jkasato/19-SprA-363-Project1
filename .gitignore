@@ -3,5 +3,8 @@
 venv
 py3env
 
+# mysql workbench
+.mwb.bak
+
 # compiled output
 *.pyc
