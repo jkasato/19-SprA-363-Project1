@@ -25,7 +25,7 @@ CREATE TABLE catalog (
     `item_id` INT NOT NULL,
     `supplier_id` INT NOT NULL,
     `price` DOUBLE NOT NULL,
-    `price_valid` BOOL NOT NULL DEFAULT TRUE,
+    `discontinued` BOOL NOT NULL DEFAULT FALSE,
     PRIMARY KEY (`item_id`, `supplier_id`),
     CONSTRAINT catalog_fk_supplier FOREIGN KEY (`supplier_id`)
         REFERENCES supplier (`id`),

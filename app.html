@@ -1,0 +1,65 @@
+<html>
+<title>CST363 SERIOUS BUSINESS -- Project 1</title>
+<body>
+<h1>CST363 SERIOUS BUSINESS -- Project 1</h1>
+<h2>Unremarkable Inventory Manager</h2>
+<br/>
+<!--${error}-->
+<!--${results}-->
+<strong>Browse</strong>
+<form action="/cgi-bin/browse.py" method="post">
+    <input type="submit" value="Check Inventory" name="inventory"/>
+    <input type="submit" value="Check Suppliers" name="suppliers"/>
+    <input type="submit" value="Check Catalog" name="catalog"/>
+</form>
+<br/>
+<hr/>
+<br/>
+
+<strong>Add an Item</strong>
+<form action="/cgi-bin/item_add.py" method="post">
+    Item to add: <input type="text" name="item_name"/> <br/>
+    <input type="submit" value="Add"/>
+</form>
+<br/>
+<hr/>
+<br/>
+
+<strong>Add a Supplier</strong>
+<form action="/cgi-bin/supplier_add.py" method="post">
+    Name: <input type="text" name="name"/> <br/>
+    Address: <input type="text" name="address"/> <br/>
+    Phone: <input type="text" name="phone"/> <br/>
+    <input type="submit" value="Add"/>
+</form>
+<br/>
+<hr/>
+<br/>
+
+
+<strong>Add an Item to Catalog</strong>
+<form action="/cgi-bin/catalog_add.py" method="post">
+    Item: <input type="text" name="item"/> <br/>
+    Supplier: <input type="text" name="supplier"/> <br/>
+    Price: <input type="text" name="price"/> <br/>
+    <input type="submit" value="Add"/>
+</form>
+<br/>
+<hr/>
+<br/>
+
+
+<strong>Add an Item to Inventory</strong>
+<form action="/cgi-bin/inventory_add.py" method="post">
+    Item: <input type="text" name="item"/> <br/>
+    Need: <input type="text" name="need"/> <br/>
+    Have: <input type="text" name="have"/> <br/>
+    <input type="submit" value="Add"/>
+</form>
+<br/>
+<hr/>
+<br/>
+
+
+</body>
+</html>

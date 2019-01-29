@@ -5,18 +5,22 @@ import cgi
 import cgitb
 from os import environ
 
+PASSWORD = "`qwe2"
+
 
 class BaseCGI(object):
-    def __init__(self, pw, title):
+    def __init__(self, title):
         cgitb.enable()
         self.connection = None
         self.headers = ["Content-Type: text/html"]
         self.body = ["<TITLE>%s</TITLE>" % title]
 
         try:
+            # parse the request -- todo (move generic logic here)
+
             # connect to database
             self.connection = mysql.connector.connect(user='root',
-                                                      password=pw,
+                                                      password=PASSWORD,
                                                       database='cst363',
                                                       host='127.0.0.1')
             # do the work
@@ -50,16 +54,6 @@ class BaseCGI(object):
     def add_cookie_to_header(self, key, value):
         self.headers.append("Set-Cookie: %s=%s" % (key, value))
 
-
-class Login(BaseCGI):
-    q_is_registered = 'select visits from login where userid = "%s"'
-    q_valid_login = 'select visits from login where userid = "%s" and password = "%s"'
-    q_insert_user = 'insert into login (userid, password, visits) values ("%s", "%s", "1")'
-    q_update_user = 'update login set visits = visits + 1 where userid = "%s" and password = "%s"'
-
-    def __init__(self, pw):
-        super().__init__(pw, "CST363 SERIOUS BUSINESS project 1")
-
     def query_get_first(self, query):
         c = self.connection.cursor()
         c.execute(query)
@@ -69,6 +63,16 @@ class Login(BaseCGI):
         c = self.connection.cursor()
         c.execute(query)
         self.connection.commit()
+
+
+class Login(BaseCGI):
+    q_is_registered = 'select visits from login where userid = "%s"'
+    q_valid_login = 'select visits from login where userid = "%s" and password = "%s"'
+    q_insert_user = 'insert into login (userid, password, visits) values ("%s", "%s", "1")'
+    q_update_user = 'update login set visits = visits + 1 where userid = "%s" and password = "%s"'
+
+    def __init__(self):
+        super().__init__("CST363 SERIOUS BUSINESS project 1")
 
     def _run(self):
         form = cgi.FieldStorage()
@@ -115,4 +119,4 @@ class Login(BaseCGI):
             self.add_tag("Thank you for visiting again, %s. This is visit number %s." % (userid, str(visits)))
 
 
-Login('password')
+Login()
