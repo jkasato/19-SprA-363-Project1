@@ -7,7 +7,7 @@ from os import environ
 from pathlib import Path
 import re
 
-PASSWORD = "`qwe2"
+PASSWORD = Path('password').read_text()
 
 
 class BaseCGI(object):

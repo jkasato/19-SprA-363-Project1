@@ -5,7 +5,7 @@ import cgi
 import cgitb
 from os import environ
 
-PASSWORD = "`qwe2"
+PASSWORD = Path('password').read_text()
 
 
 class BaseCGI(object):
