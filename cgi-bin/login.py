@@ -4,10 +4,12 @@ import mysql.connector
 import cgi
 import cgitb
 from os import environ
+from pathlib import Path
 
 PASSWORD = Path('password').read_text()
 
 
+# note: this one is different from the others
 class BaseCGI(object):
     def __init__(self, title):
         cgitb.enable()
@@ -28,8 +30,8 @@ class BaseCGI(object):
         except mysql.connector.Error as error:
             self.add_tag("Error -- %s" % error)
         finally:
-            self.connection.close()
             self.respond()
+            self.connection.close()
 
     def _run(self):
         raise NotImplementedError
