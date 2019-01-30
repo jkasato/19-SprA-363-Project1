@@ -33,8 +33,8 @@ class BaseCGI(object):
         except mysql.connector.Error as error:
             self.error = "Error -- %s" % error
         finally:
-            self.connection.close()
             self.respond()
+            self.connection.close()
 
     def _run(self):
         raise NotImplementedError
@@ -165,6 +165,7 @@ class CatalogAdd(BaseCGI):
     def _run(self):
         form = cgi.FieldStorage()
         # todo + update price/allow discontinuing products
+        # todo + automatically add item if it doesn't exist (can't do same for supplier, unless we prompt)
 
         # retrieve input values
         item = form["item"].value
@@ -179,7 +180,7 @@ class CatalogAdd(BaseCGI):
             self.add_result('result', 'The supplier: %s needs to be added to suppliers before continuing' % supplier)
 
         # catalog item exists?
-        if not self.query_get_first(self.q_catalog_exists % (item, supplier)):
+        elif not self.query_get_first(self.q_catalog_exists % (item, supplier)):
             self.query_committed(self.q_catalog_add % (item, supplier, price))
             self.add_result('result', 'Added Catalog item: %s at %s' % (item, supplier))
         else:

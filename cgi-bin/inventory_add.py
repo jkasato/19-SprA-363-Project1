@@ -33,8 +33,8 @@ class BaseCGI(object):
         except mysql.connector.Error as error:
             self.error = "Error -- %s" % error
         finally:
-            self.connection.close()
             self.respond()
+            self.connection.close()
 
     def _run(self):
         raise NotImplementedError
